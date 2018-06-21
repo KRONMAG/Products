@@ -16,18 +16,21 @@ namespace Products
 
         private void onProcessExit(object sender, EventArgs e)
         {
-            List<Product> products = Database.ReadAllProducts();
-            string[] names = Directory.GetFiles("img");
-            foreach (var name in names)
-                try
-                {
-                    if ((from product in products where product.ImgFileName == Path.GetFileName(name) select product).Count() == 0)
-                        File.Delete(name);
-                }
-                catch
-                {
+            if (Directory.Exists("img"))
+            {
+                List<Product> products = Database.ReadAllProducts();
+                string[] names = Directory.GetFiles("img");
+                foreach (var name in names)
+                    try
+                    {
+                        if ((from product in products where product.ImgFileName == Path.GetFileName(name) select product).Count() == 0)
+                            File.Delete(name);
+                    }
+                    catch
+                    {
 
-                }
+                    }
+            }
         }
     }
 }
