@@ -1,0 +1,10 @@
+﻿<Application x:Class="Products.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Products"
+             xmlns:views="clr-namespace:Products.Views"
+             StartupUri="Views/ProductsDisplay.xaml">
+    <Application.Resources>
+        <views:ImgFileNameConverter x:Key="ImgFileNameConverter"/>
+    </Application.Resources>
+</Application>
