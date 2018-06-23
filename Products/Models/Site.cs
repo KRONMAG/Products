@@ -12,13 +12,13 @@ namespace Products.Models
     {
         public static void UploadProducts(string login, string password)
         {
-            string GetFullPath(string subPath)
+            string getFullName(string subPath)
             {
                 return $"site/wwwroot/{subPath}";
             }
             List<Product> products = Database.ReadAllProducts();
             string JSONFileName = "products.js",
-                   imgDirPath = GetFullPath("img/products");
+                   imgDirFullName = getFullName("img/products");
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<Product>));
             FileStream stream = File.Create(JSONFileName);
             serializer.WriteObject(stream, products);
@@ -26,10 +26,12 @@ namespace Products.Models
             FtpClient client = new FtpClient("waws-prod-sn1-011.ftp.azurewebsites.windows.net", login, password);
             client.DataConnectionType = FtpDataConnectionType.AutoActive;
             client.Connect();
-            client.UploadFile(JSONFileName, GetFullPath($"js/{JSONFileName}"));
+            client.DeleteDirectory(imgDirFullName);
+            client.CreateDirectory(imgDirFullName);
+            client.UploadFile(JSONFileName, getFullName($"js/{JSONFileName}"));
             File.Delete(JSONFileName);
             foreach (var product in products)
-                client.UploadFile($"img/{product.ImgFileName}", $"{imgDirPath}/{product.ImgFileName}");
+                client.UploadFile($"img/{product.ImgFileName}", $"{imgDirFullName}/{product.ImgFileName}");
             client.Disconnect();
         }
     }

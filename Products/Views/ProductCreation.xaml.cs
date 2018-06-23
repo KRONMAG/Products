@@ -12,7 +12,7 @@ namespace Products.Views
     {
         public ProductCreation(Product product = null)
         {
-            Types = Database.ReadAllTypes();
+            Types = ProductType.GetAllTypes();
             if (product == null)
             {
                 if (Types.Count > 0)

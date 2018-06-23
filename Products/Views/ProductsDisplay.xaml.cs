@@ -11,7 +11,7 @@ namespace Products.Views
     {
         public ProductsDisplay()
         {
-            Types = Database.ReadAllTypes();
+            Types = ProductType.GetAllTypes();
             if (Types.Count > 0) selectedType = Types[0];
             products = Database.ReadAllProducts();
             CreateProduct = new Command(createProduct);

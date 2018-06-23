@@ -12,13 +12,7 @@ namespace Products.Models
         static Database()
         {
             db = new SQLiteConnection("products.db");
-            db.CreateTable<ProductType>();
             db.CreateTable<Product>();
-        }
-
-        public static List<ProductType> ReadAllTypes()
-        {
-            return db.Table<ProductType>().ToList();
         }
 
         public static List<Product> ReadAllProducts()
